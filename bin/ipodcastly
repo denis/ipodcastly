@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
+
+require 'ipodcastly'
+require 'choice'
+
+Choice.options do
+  banner "Usage: #{File.basename(__FILE__)}"
+  separator ''
+  separator 'Common options: '
+
+  option :help do
+    long '--help'
+    desc 'Show this message'
+  end
+
+  option :version do
+    short '-v'
+    long '--version'
+    desc 'Show version'
+    action do
+      puts "#{File.basename(__FILE__)} #{Ipodcastly::Version::STRING}"
+      exit
+    end
+  end
+end
+
+options = Choice.choices
+Ipodcastly::Sync.start(options)
