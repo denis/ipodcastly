@@ -14,7 +14,9 @@ begin
     gem.authors = ["Denis Barushev"]
     gem.add_dependency "rb-appscript", ">= 0.5.3"
     gem.add_dependency "httparty", ">= 0.4.5"
+    gem.add_dependency "choice", ">= 0.1.4"
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "mocha", ">= 0.9.8"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

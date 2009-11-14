@@ -4,7 +4,7 @@ module Ipodcastly
       attr_reader :id, :title, :url
 
       include HTTParty
-      base_uri 'podcastly.com/api/v1'
+      base_uri '0.0.0.0:3000/api/v1'
 
       def initialize(id, title, url)
         @id = id

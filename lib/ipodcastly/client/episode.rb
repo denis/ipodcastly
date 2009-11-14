@@ -16,7 +16,7 @@ module Ipodcastly
       end
 
       def position
-        @position ||= @reference.bookmark.get
+        @position ||= @reference.played_count.get > 0 ? duration : @reference.bookmark.get
       end
 
       def position=(time)
@@ -24,12 +24,24 @@ module Ipodcastly
         @reference.bookmark.set(time)
       end
 
-      def updateable?
-        @reference.enabled.get && @reference.played_count.get.zero?
+      def enabled?
+        @reference.enabled.get
       end
 
-      def download
-        @reference.download
+      def audio?
+        @reference.video_kind.get == :none
+      end
+
+      def never_played?
+        position.zero? && @reference.played_count.get.zero?
+      end
+
+      def updateable?
+        enabled? && never_played?
+      end
+
+      def listened?
+         enabled? && !never_played?
       end
     end
   end
