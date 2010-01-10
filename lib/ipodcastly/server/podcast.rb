@@ -1,10 +1,11 @@
 module Ipodcastly
   module Server
     class Podcast
-      attr_reader :id, :title, :url
-
       include HTTParty
-      base_uri '0.0.0.0:3000/api/v1'
+      base_uri 'http://podcastly.com/api/v1'
+      default_params :api_key => Ipodcastly::Sync.api_key
+
+      attr_reader :id, :title, :url
 
       def initialize(id, title, url)
         @id = id
@@ -13,11 +14,27 @@ module Ipodcastly
       end
 
       def episodes
-        self.class.get("/episodes.json?podcast_id=#{id}").map { |e| Episode.new(e['id'], e['title'], e['position']) }
+        response = self.class.get("/episodes.json?podcast_id=#{id}")
+
+        if response.code == 200
+          response.map { |e| Episode.new(e['id'], id, e['title'], e['position'], e['duration']) }
+        else
+          []
+        end
       end
 
       def self.all
-        get('/podcasts.json').map { |p| new(p['id'], p['title'], p['url']) }
+        response = get('/podcasts.json')
+
+        if response.code == 200
+          response.map { |p| new(p['id'], p['title'], p['url']) }
+        else
+          []
+        end
+      end
+
+      def self.find_by_title(title)
+        all.detect { |p| p.title == title }
       end
     end
   end

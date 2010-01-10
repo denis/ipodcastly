@@ -24,6 +24,10 @@ module Ipodcastly
         @reference.bookmark.set(time)
       end
 
+      def mark_as_listened
+        @reference.played_count.set(1)
+      end
+
       def enabled?
         @reference.enabled.get
       end
