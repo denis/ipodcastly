@@ -1,14 +1,12 @@
 require 'rubygems'
 require 'rake'
-require 'lib/ipodcastly/version'
 
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "ipodcastly"
-    gem.version = Ipodcastly::Version::STRING
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Ipodcastly is a console client for syncing local iTunes library with podcastly.com.}
+    gem.description = %Q{The gem was built as a simple example to demonstrate how podcastly.com API works.}
     gem.email = "barushev@gmail.com"
     gem.homepage = "http://github.com/denis/ipodcastly"
     gem.authors = ["Denis Barushev"]
@@ -17,6 +15,8 @@ begin
     gem.add_dependency "choice", ">= 0.1.4"
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "mocha", ">= 0.9.8"
+    gem.files = %w(LICENSE README.md) + Dir.glob("{bin,lib}/**/*")
+    gem.test_files = []
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -42,7 +42,7 @@ task :default => :spec
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
-  version = Ipodcastly::Version::STRING
+  version = File.exist?('VERSION') ? File.read('VERSION') : ''
 
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "ipodcastly #{version}"

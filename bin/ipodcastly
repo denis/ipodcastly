@@ -19,7 +19,7 @@ Choice.options do
     long '--version'
     desc 'Show version'
     action do
-      puts "#{File.basename(__FILE__)} #{Ipodcastly::Version::STRING}"
+      puts "#{File.basename(__FILE__)} #{File.exist?('VERSION') ? File.read('VERSION') : ''}"
       exit
     end
   end

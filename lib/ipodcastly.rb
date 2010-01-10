@@ -10,5 +10,3 @@ require 'ipodcastly/client/episode'
 
 require 'ipodcastly/server/podcast'
 require 'ipodcastly/server/episode'
-
-require 'ipodcastly/version'
